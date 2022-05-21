@@ -89,7 +89,6 @@ class NamespaceTest(PostsViewsTest):
 
 class IndexPageTest(PostsViewsTest):
     """Тесты для страницы index."""
-    cache.clear()
     def test_index_show_correct_context(self):
         """Тестирование содержания context страницы index."""
         response = self.authorized_client.get('/')
