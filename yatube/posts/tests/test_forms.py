@@ -228,12 +228,3 @@ class CommentTest(FormsTest):
             response,
             reverse('users:login') + '?next=%2Fposts%2F1%2Fcomment%2F'
         )
-
-    def test_comment_form(self):
-        response = self.authorized_client.get(
-            reverse('posts:post_detail', kwargs={'post_id': self.post.id})
-        )
-        self.assertEqual(
-            response.context.get('form'),
-            CommentForm
-        )
