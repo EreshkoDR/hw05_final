@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{title}}{% endblock title %}
+{% block content %}
+{% load static %}
+<div class="col-12">
+    <div class"col-3">
+        <p><img src="{% static 'img/cat.jpeg' %}" width="200" height="222" alt="Кошка-Дуся"></p>
+    </div>
+    <div class"col-6">
+        <div>
+            <h1>Я есть кошка</h1>
+        </div>
+        <p>
+            текст
+        </p>
+    </div>
+</div>
+
+
+
+{% endblock content %}
+
