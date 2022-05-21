@@ -8,7 +8,6 @@ from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from ..models import Post, Group, Comment
-from ..forms import CommentForm
 
 TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
 
