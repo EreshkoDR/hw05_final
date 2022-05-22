@@ -229,17 +229,14 @@ class CreatePost(PostsViewsTest):
 
     def is_in(self, page, search):
         """Функция проверки содержания паджинатора."""
-        # До этого конструкция была проще
-        # Но потом я подумал, что если страниц будет больше чем две
-        # и поэтому сделал такую функцию
-        # Если можно сделать проще, буду рад узнать об этом
-        # Так же подскажи пожалуйста не излишне ли это
+        # Спасибо за ревью <3
         count_page = (COUNT_POSTS // 10) + 1
         for i in range(1, count_page + 1):
             pages = self.authorized_client.get(page + f'?page={i}')
             for k in pages.context.get('page_obj'):
                 if k.text == search:
                     return True
+        return False
 
     def test_post_in_pages(self):
         """
@@ -288,7 +285,6 @@ class CacheTest(TestCase):
         is_in = response.context.get('page_obj')[0]
         content_before_delete = response.content.decode()
         self.assertEqual(is_in.text, 'Test cache')
-        # self.assertTrue(is_in, 'Поста с содержанием "Test cache" не найдено')
         # Удаляем пост
         Post.objects.get(text='Test cache').delete()
         # Проверяем удаление из базы

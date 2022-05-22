@@ -62,7 +62,7 @@ def profile(request, username):
     if Follow.objects.filter(
         user=request.user.is_authenticated,
         author=author
-    ):
+    ).exclude():
         following = True
     else:
         following = False
@@ -77,6 +77,16 @@ def profile(request, username):
     return render(request, 'posts/profile.html', context)
 
 
+# @login_required
+# при текстах практикума выходит ошибка
+# AttributeError: 'NoneType' object has no attribute 'keys'
+# ---------------------------------------------------------
+# context = None, field_type = <class 'posts.models.Post'>
+#
+#     def get_field_from_context(context, field_type):
+# >       for field in context.keys():
+# E       AttributeError: 'NoneType' object has no attribute 'keys'
+#
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     comments = Comment.objects.filter(post_id=post_id)

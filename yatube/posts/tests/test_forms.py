@@ -181,6 +181,29 @@ class ImageFormTest(FormsTest):
             image='posts/small_2.gif'
         ).exists())
 
+    def test_upload_not_image(self):
+        """Тестируем загрузку (не)картинки."""
+        try:
+            uploaded = SimpleUploadedFile(
+                name='I_AM_NOT_A_IMAGE',
+                content_type='text/plain',
+                content='I_AM_A_STRING',
+            )
+            form_data = {
+                'text': 'Test_upload_not_image',
+                'author': self.user,
+                'image': uploaded,
+            }
+            self.authorized_client.post(
+                reverse('posts:post_create'),
+                data=form_data,
+                follow=True
+            )
+        except TypeError:
+            has_type_error = True
+        error_message = 'При попытке загрузить строку, всё получилось о_О'
+        self.assertTrue(has_type_error, error_message)
+
 
 class CommentTest(FormsTest):
     @classmethod
