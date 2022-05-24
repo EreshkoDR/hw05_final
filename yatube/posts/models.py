@@ -90,7 +90,9 @@ class Follow(models.Model):
     )
 
     class Meta:
-        models.CheckConstraint(
-            check=models.Q(author__exclude=models.Q),
-            name='author_exclude_user'
-        )
+        constraints = [
+            models.CheckConstraint(
+                check=~models.Q(author=models.F('user')),
+                name='author_exclude_user'
+            ),
+        ]
